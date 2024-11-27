@@ -10,7 +10,10 @@
             <h2>Klipp & Klang</h2>
         </div>
         <nav class="navbar">
-            <a href="/booking">bokningar</a>
         </nav>
     </header>
+    <main>
+        <a class="btn book-btn" href="/booking">Boka här</a>
+
+    </main> 
 </template>

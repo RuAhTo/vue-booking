@@ -1,7 +1,13 @@
 <script lang="ts">
-    export default{
-        name: 'BookingPage'
+import { defineComponent } from 'vue';
+import Calendar from '../components/Calendar.vue';
+
+export default defineComponent({
+    name: 'BookingPage',
+    components: {
+        Calendar,
     }
+});
 </script>
 
 <template>
@@ -11,8 +17,6 @@
         </nav>
     </header>
     <main>
-        <div class="hero">
-            <button>Boka här</button>
-        </div>
+        <Calendar/>
     </main>
 </template>
