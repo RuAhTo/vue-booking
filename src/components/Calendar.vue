@@ -6,12 +6,43 @@ export default defineComponent({
 
     setup(){
 
+        //Variables
         const currentDate = new Date();
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        const weekdays = ["Sun","Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]
 
+        //Ref
         const currentYear = ref<number>(currentDate.getFullYear());
         const currentMonthIndex = ref<number>(currentDate.getMonth());
+        const dates = ref<any[]>([]);
 
+        //Get month name
+        function getMonthName(index:number):string{
+            return months[index];
+        }
+
+        //Dates
+        function createMonthDates(year:number, month:number){
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const datesInMonth = [];
+            for (let day = 1; day <= daysInMonth; day++){
+                const date = new Date(year, month, day);
+                datesInMonth.push({
+                    day: day,
+                    month: months[month],
+                    year: year,
+                    weekday: weekdays[date.getDay()],
+                    available: true,
+                })
+            }
+            return datesInMonth;
+        }
+
+        dates.value = createMonthDates(currentYear.value, currentMonthIndex.value);
+        console.log(createMonthDates(currentYear.value, currentMonthIndex.value))
+
+        //Increase the month and year
         function handleIncreaseMonth(): void{
             if (currentMonthIndex.value == 11){
                 currentMonthIndex.value = 0;
@@ -22,8 +53,10 @@ export default defineComponent({
                 currentMonthIndex.value += 1;
                 console.log('current month:',currentMonthIndex.value)
             }
+            dates.value = createMonthDates(currentYear.value, currentMonthIndex.value)
         }
 
+        //Decrease the month and year
         function handleDecreaseMonth(): void {
             if (currentMonthIndex.value === 0) {
                 currentMonthIndex.value = 11;
@@ -35,18 +68,24 @@ export default defineComponent({
                 currentMonthIndex.value -= 1;
                 console.log('current month:',currentMonthIndex.value)
             }
-            }
 
-        function getMonthName(index:number):string{
-            return months[index];
+            dates.value = createMonthDates(currentYear.value, currentMonthIndex.value)
         }
 
+        const getWeekday = computed(() => {
+          return (date: Date) => weekdays[date.getDay()];
+        });
+
+
         return{
+            currentYear,
+            dates,
             currentMonthIndex,
             currentMonth: computed(() => getMonthName(currentMonthIndex.value)),
             handleIncreaseMonth,
-            handleDecreaseMonth
-            
+            handleDecreaseMonth,
+            getWeekday,
+            weekdays,
         }
   }
 })
@@ -60,48 +99,18 @@ export default defineComponent({
             <button @click="handleIncreaseMonth()">></button>
         </div>
         <div class="weekday-container">
-            <div class="weekday-column">
-                <h4>Mån</h4>
-                <div class="dates-container">
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Tis</h4>
+            <div class="weekday-column" v-for="day in weekdays" :key="day">
+                <h4>{{ day }}</h4>
                 <div class="dates-container">
                     
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Ons</h4>
-                <div class="dates-container">
-                    
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Tor</h4>
-                <div class="dates-container">
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Fre</h4>
-                <div class="dates-container">
-                    
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Lör</h4>
-                <div class="dates-container">
-                    
-                </div>
-            </div>
-            <div class="weekday-column">
-                <h4>Sön</h4>
-                <div class="dates-container">
-                    
+                    <div class="date-wrapper" v-for="date in dates.filter(d => d.weekday === day)" :key="date.day">
+                        <div class="date-btn">
+                            {{ date.day }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -148,6 +157,29 @@ export default defineComponent({
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
+}
+.date-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.date-btn{
+    background-color: white;
+    border-radius: .4rem;
+    width: 6rem;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.date-btn:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.date-btn .active{
+    border: 2px solid black
 }
 
 </style>
