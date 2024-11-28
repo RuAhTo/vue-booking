@@ -3,6 +3,13 @@
     --hover-color:#ffe7fe;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+}
 
 .btn{
     background: none;
