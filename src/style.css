@@ -1,6 +1,7 @@
 :root{
     --primary-color: #FFDAFE;
     --hover-color:#ffe7fe;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .btn{

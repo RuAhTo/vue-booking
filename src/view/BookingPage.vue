@@ -20,3 +20,12 @@ export default defineComponent({
         <Calendar/>
     </main>
 </template>
+
+<style>
+    main{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+    }
+</style>

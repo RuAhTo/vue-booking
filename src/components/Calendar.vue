@@ -1,90 +1,153 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'Calendar',
 
     setup(){
 
-        const year = 2024;
-        const month = 12;
+        const currentDate = new Date();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-        const daysInMonth = ref<Array<{ date:string; available: boolean}>>([])
+        const currentYear = ref<number>(currentDate.getFullYear());
+        const currentMonthIndex = ref<number>(currentDate.getMonth());
 
-        const generateDaysInMonth = () => {
-            const days = [];
-            const date = new Date(year,month, 1);
+        function handleIncreaseMonth(): void{
+            if (currentMonthIndex.value == 11){
+                currentMonthIndex.value = 0;
+                currentYear.value += 1;
+                console.log('current year:', currentYear.value)
+                console.log('current month:',currentMonthIndex.value)
+            } else {
+                currentMonthIndex.value += 1;
+                console.log('current month:',currentMonthIndex.value)
+            }
+        }
 
-            const totalDays = new Date(year,month + 1, 0).getDate();
+        function handleDecreaseMonth(): void {
+            if (currentMonthIndex.value === 0) {
+                currentMonthIndex.value = 11;
+                currentYear.value -= 1;
+                console.log('current year:', currentYear.value)
+                console.log('current month:',currentMonthIndex.value)
+            } else {
 
-            for (let i = 1; i <= totalDays; i++){
-                days.push({
-                    date: `${i < 10 ? `0${i}` : i}`,
-                    available: i % 2 === 0,
-                })
+                currentMonthIndex.value -= 1;
+                console.log('current month:',currentMonthIndex.value)
+            }
             }
 
-            daysInMonth.value = days;
+        function getMonthName(index:number):string{
+            return months[index];
         }
-            // Generera dagar när komponenten är monterad
-    onMounted(() => {
-      generateDaysInMonth();
-    });
 
-    const showTimes = (day: { date: string }) => {
-      // Öppna modal med lediga tider för den här dagen
-      console.log("Show available times for", day.date);
-    };
-
-    return { daysInMonth, showTimes };
-  },
+        return{
+            currentMonthIndex,
+            currentMonth: computed(() => getMonthName(currentMonthIndex.value)),
+            handleIncreaseMonth,
+            handleDecreaseMonth
+            
+        }
+  }
 })
 </script>
 
 <template>
-    <div class="month">
-        <button class=""><</button>
-        <h2>December</h2>
-        <button>></button>
-    </div>
-    <div class="calendar-wrapper">
-        <div class="calendar">
-            <div 
-                v-for="day in daysInMonth" 
-                class="date"
-                :key="day.date"
-                >{{  day.date }}
+    <div class="container">
+        <div class="calendar-header">
+            <button @click="handleDecreaseMonth"><</button>
+            <h2>{{ currentMonth }}</h2>
+            <button @click="handleIncreaseMonth()">></button>
+        </div>
+        <div class="weekday-container">
+            <div class="weekday-column">
+                <h4>Mån</h4>
+                <div class="dates-container">
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Tis</h4>
+                <div class="dates-container">
+                    
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Ons</h4>
+                <div class="dates-container">
+                    
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Tor</h4>
+                <div class="dates-container">
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Fre</h4>
+                <div class="dates-container">
+                    
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Lör</h4>
+                <div class="dates-container">
+                    
+                </div>
+            </div>
+            <div class="weekday-column">
+                <h4>Sön</h4>
+                <div class="dates-container">
+                    
+                </div>
             </div>
         </div>
+        
     </div>
 </template>
 
 <style scoped>
-.month{
+.container{
     display: flex;
-    justify-content: center;
-    gap: 2rem;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    background-color: var(--primary-color);
+    width: 50%;
+    height: min-content;
+    border-radius: 1rem;
+    border: 2px solid black;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
-.calendar-wrapper{
+.calendar-header{
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
+    background-color: white;
+    width: 100%;
+    border-radius: 1rem 1rem 0 0; 
+    border-bottom: 2px solid black;
 }
-.calendar{
-    width: 60rem;
-    display: flex;
-    flex-wrap: wrap;
+.calendar-header button{
+    background: none;
+    border: none;
+    width: 2rem;
 }
-.date{
-    padding: 2rem;
-    background: var(--primary-color);
-    margin: 1rem;
-    border-radius: 1rem;
-}
-
-.date:hover{
-    background-color:var(--hover-color);
-    transform: scale(1.1);
+.calendar-header button:hover{
+    transform: scale(1.2);
     cursor: pointer;
 }
+.weekday-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+.dates-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+}
+
 </style>
