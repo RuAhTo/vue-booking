@@ -1,9 +1,11 @@
 <script lang="ts">
+import Footer from '../components/Footer.vue';
 import Navbar from '../components/Navbar.vue';
     export default{
         name: 'HomePage',
         components: {
             Navbar,
+            Footer
         }
     }
 </script>
@@ -17,6 +19,7 @@ import Navbar from '../components/Navbar.vue';
             <a class="book-btn" href="/booking">Boka här</a>
         </div>
     </main> 
+    <Footer/>
 </template>
 
 <style scoped>
@@ -45,7 +48,7 @@ import Navbar from '../components/Navbar.vue';
 }
 
 .book-btn:hover{
-    
+
 }
 
 </style>

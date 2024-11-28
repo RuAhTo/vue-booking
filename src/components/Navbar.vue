@@ -15,6 +15,7 @@ export default defineComponent({
             <h2>Klipp & Klang</h2>
         </div>
         <div class="nav-items">
+            <a href="/">Hem</a>
             <a href="/booking">Bokningar</a>
         </div>
     </nav>
@@ -30,6 +31,9 @@ export default defineComponent({
     }
 .nav-items{
     padding: 0 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
 }
 
 </style>
