@@ -16,6 +16,11 @@ import Navbar from '../components/Navbar.vue';
     </header>
     <main>
         <div class="hero">
+            <div>
+                <h1>Välkommen till Klipp & Klang!</h1>
+                <p class="slogan">Där stil möter harmoni – din skönhet, vårt fokus.</p>
+            </div>
+
             <a class="book-btn" href="/booking">Boka här</a>
         </div>
     </main> 
@@ -30,8 +35,20 @@ import Navbar from '../components/Navbar.vue';
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    flex-direction: column;
+}
+.hero div{
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+h1{
+    font-size: 56px;
+}
+p{
+    font-size: 32px;
 }
 
 .book-btn{
@@ -48,7 +65,9 @@ import Navbar from '../components/Navbar.vue';
 }
 
 .book-btn:hover{
-
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+    font-weight: 400;
 }
 
 </style>
