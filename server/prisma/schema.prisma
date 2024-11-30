@@ -13,32 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserRole {
-  PROVIDER
-  CUSTOMER
-}
-
-model AvailabilityRule {
-  id          Int       @id @default(autoincrement())
-  dayOfWeek   Int       // 0 = Söndag - 6 = Lördag
-  startTime   String    // "HH:mm" ex: "10:00"
-  endTime     String    // "HH:mm" ex: "18:00"
-  userId      Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
+// En användare kan ha flera roller och flera bokningar
 model User {
-  id                Int               @id @default(autoincrement())   
-  name              String
-  email             String            @unique
-  password          String   
-  role              UserRole          
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
 }
 
+// En bokning tillhör en användare och har en tid
 model Booking {
-  id         Int       @id @default(autoincrement())
-  date       DateTime  // Datum och tid för bokningen
-  customerId Int
-  providerId Int
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  startTime DateTime
+  endTime   DateTime
+  user      User     @relation(fields: [userId], references: [id])
 }
