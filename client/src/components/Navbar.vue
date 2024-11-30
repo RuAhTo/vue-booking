@@ -44,6 +44,9 @@ export default defineComponent({
 
 <style scoped>
 nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     width: 100%;
     display: flex;
     align-items: center;

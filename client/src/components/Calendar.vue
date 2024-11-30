@@ -21,6 +21,17 @@ export default defineComponent({
             return months[index];
         }
 
+        // Time generator
+        function generateTimes(startHour:number, endHour:number){
+        const times = [];
+        for (let hour = startHour; hour < endHour; hour++) {
+            const time = `${String(hour).padStart(2, '0')}:00`; // Formaterar till "HH:00"
+            times.push({ time, booked: false });
+        }
+        return times;
+        }
+
+
         //Dates
         function createMonthDates(year:number, month:number){
             const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -29,11 +40,13 @@ export default defineComponent({
             for (let day = 1; day <= daysInMonth; day++){
                 const date = new Date(year, month, day);
                 datesInMonth.push({
+                    date: date,
                     day: day,
                     month: months[month],
                     year: year,
                     weekday: weekdays[date.getDay()],
                     available: true,
+                    times: generateTimes(10, 18),
                 })
             }
             return datesInMonth;
