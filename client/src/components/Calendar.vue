@@ -40,7 +40,7 @@ export default defineComponent({
             for (let day = 1; day <= daysInMonth; day++){
                 const date = new Date(year, month, day);
                 datesInMonth.push({
-                    date: date,
+                    date: date.toISOString(),
                     day: day,
                     month: months[month],
                     year: year,
