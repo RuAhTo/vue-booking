@@ -6,7 +6,7 @@
     "dev": "nodemon --exec ts-node index.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.21.1",
+    "@prisma/client": "^6.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/jsonwebtoken": "^9.0.7",
@@ -22,7 +22,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.9",
-    "prisma": "^5.21.1",
+    "prisma": "^6.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }
