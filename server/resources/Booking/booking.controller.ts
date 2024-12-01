@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { Request, Response } from 'express'
 import dotenv from 'dotenv'
+import { start } from "repl";
 
 dotenv.config();
 const prisma = new PrismaClient();
@@ -19,31 +20,51 @@ export const getAllBookings = async (req: Request, res: Response) => {
     }
 };
 
-export async function getSpecificBooking(res:Response, req:Request) {
+export const getSpecificBooking = async (req: Request, res: Response) => {
+        const { id } = req.params;
 
-    const {id} = req.params;
+        if(isNaN(parseInt(id))) {
+            res.status(400).json({ message: 'Invalid user ID.'});
+            return;
+        }
 
-    if (isNaN(Number(id))) {
-        res.status(400).json({ message: 'Invalid user ID.' });
-        return
-    }
-
-    try{
+    try {
 
         const user = await prisma.user.findUnique({
-            where: {id: Number(id)}
+            where: {id: parseInt(id)}
         })
 
         if(!user){
-            res.status(404).json({ message: 'User not found'})
-            return
+            res.status(404).json({ message: 'Booking not found.'});
+            return;
         }
-        
-        res.status(200).json(user);
-        return
 
+        res.status(200).json(user);
+        return;
     } catch(error){
         res.status(500).json({ error: 'Database query failed', details: error})
         console.error('Error details', error)
+    }
+}
+
+export const createBooking = async (req: Request, res: Response) => {
+    const {startTime, endTime, user} = req.body;
+
+    try{
+        const booking = await prisma.booking.create({
+            data: {
+                startTime: startTime,
+                endTime: endTime,
+                user: user,
+            }
+        })
+
+
+        res.status(201).json({ id: booking.id, message: 'Booking created!', startTime: booking.startTime, endTime: booking.endTime  });
+        
+
+    }catch(error){
+        res.status(500).json({ message: 'Database query failed', details: error })
+        console.error('Error details', error )
     }
 }
