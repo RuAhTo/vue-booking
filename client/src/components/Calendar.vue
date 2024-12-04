@@ -33,24 +33,65 @@ export default defineComponent({
 
 
         //Dates
-        function createMonthDates(year:number, month:number){
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
+        function createMonthDates(year: number, month: number) {
+        const firstDayOfMonth = new Date(year, month, 1);
 
-            const datesInMonth = [];
-            for (let day = 1; day <= daysInMonth; day++){
-                const date = new Date(year, month, day);
-                datesInMonth.push({
-                    date: date.toISOString(),
-                    day: day,
-                    month: months[month],
-                    year: year,
-                    weekday: weekdays[date.getDay()],
-                    available: true,
-                    times: generateTimes(10, 18),
-                })
-            }
-            return datesInMonth;
+        const startingDayOfWeek = firstDayOfMonth.getDay();
+        
+        const datesInMonth = [];
+        
+        const previousMonth = month === 0 ? 11 : month - 1;
+        const previousMonthYear = month === 0 ? year - 1 : year;
+        const daysInPreviousMonth = new Date(previousMonthYear, previousMonth + 1, 0).getDate();
+        
+        for (let i = 0; i < startingDayOfWeek; i++) {
+            const prevMonthDate = new Date(previousMonthYear, previousMonth, daysInPreviousMonth - startingDayOfWeek + i + 1);
+            datesInMonth.push({
+                date: prevMonthDate.toISOString(),
+                day: prevMonthDate.getDate(),
+                month: months[prevMonthDate.getMonth()],
+                year: prevMonthDate.getFullYear(),
+                weekday: weekdays[prevMonthDate.getDay()],
+                available: false,
+                times: generateTimes(10, 18),
+            });
         }
+        
+        const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
+        for (let day = 1; day <= daysInCurrentMonth; day++) {
+            const date = new Date(year, month, day);
+            datesInMonth.push({
+                date: date.toISOString(),
+                day: day,
+                month: months[month],
+                year: year,
+                weekday: weekdays[date.getDay()],
+                available: true,
+                times: generateTimes(10, 18),
+            });
+        }
+        
+
+        const nextMonth = month === 11 ? 0 : month + 1;
+        const nextMonthYear = month === 11 ? year + 1 : year;
+        let dayCounter = 1;
+        
+        while (datesInMonth.length % 7 !== 0) {
+            const nextMonthDate = new Date(nextMonthYear, nextMonth, dayCounter);
+            datesInMonth.push({
+                date: nextMonthDate.toISOString(),
+                day: dayCounter,
+                month: months[nextMonth],
+                year: nextMonthYear,
+                weekday: weekdays[nextMonthDate.getDay()],
+                available: false,
+                times: generateTimes(10, 18),
+            });
+            dayCounter++;
+        }
+        
+        return datesInMonth;
+    }
 
         dates.value = createMonthDates(currentYear.value, currentMonthIndex.value);
         console.log(createMonthDates(currentYear.value, currentMonthIndex.value))
@@ -109,15 +150,22 @@ export default defineComponent({
         <div class="calendar-header">
             <button @click="handleDecreaseMonth"><</button>
             <h2>{{ currentMonth }}</h2>
+            <h2>{{ currentYear }}</h2>
             <button @click="handleIncreaseMonth()">></button>
         </div>
         <div class="weekday-container">
             <div class="weekday-column" v-for="day in weekdays" :key="day">
                 <h4>{{ day }}</h4>
                 <div class="dates-container">
-                    
-                    <div class="date-wrapper" v-for="date in dates.filter(d => d.weekday === day)" :key="date.day">
-                        <div class="date-btn">
+                    <div 
+                        class="date-wrapper" 
+                        v-for="date in dates.filter(d => d.weekday === day)" 
+                        :key="date.date"
+                    >
+                        <div 
+                            class="date-btn"
+                            :class="{ 'out-of-month': !date.available }"
+                        >
                             {{ date.day }}
                         </div>
                     </div>
@@ -192,8 +240,13 @@ export default defineComponent({
     cursor: pointer;
     transform: scale(1.05);
 }
+.date-btn.out-of-month {
+    background-color: #f0f0f0;
+    color: #888;
+    cursor: default;
+    transform: none;
+}
 .date-btn .active{
     border: 2px solid black
 }
-
 </style>
