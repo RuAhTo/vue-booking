@@ -16,7 +16,7 @@ import Navbar from '../components/Navbar.vue';
     </header>
     <main>
         <div class="hero">
-            <div>
+            <div class="container-glass">
                 <h1>Välkommen till Klipp & Klang!</h1>
                 <p class="slogan">Där stil möter harmoni – din skönhet, vårt fokus.</p>
             </div>
@@ -68,6 +68,12 @@ p{
     background-color: var(--hover-color);
     transform: scale(1.05);
     font-weight: 400;
+}
+
+.container-glass{
+    background-color: rgba(114, 114, 114, 0.255);
+    border-radius: 1rem;
+    backdrop-filter: blur(2px);
 }
 
 </style>
