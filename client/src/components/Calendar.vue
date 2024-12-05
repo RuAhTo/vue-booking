@@ -1,9 +1,12 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
+import BookingForm from './BookingForm.vue';
 
 export default defineComponent({
     name: 'Calendar',
-
+    components: {
+        BookingForm
+    },
     setup(){
 
         //Variables

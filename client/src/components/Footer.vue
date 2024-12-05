@@ -1,22 +1,9 @@
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'Footer',
     setup() {
-
-        const items = ref([
-        { id: 1, name: 'Apple', category: 'Fruit' },
-        { id: 2, name: 'Carrot', category: 'Vegetable' },
-        { id: 3, name: 'Banana', category: 'Fruit' }
-        ]);
-
-
-        const filterCategory = ref<string>('Fruit');
-
-        const filteredItems = computed(() => {
-            return items.value.filter(item => item.category === filterCategory.value);
-        });
 
     },
     })
