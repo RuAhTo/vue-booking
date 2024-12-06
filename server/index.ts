@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 
-// import usersRouter from './resources/User/user.routes';
+import usersRouter from './resources/User/user.routes';
 import bookingsRouter from './resources/Booking/booking.routes';
+
 
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use('/api',bookingsRouter)
+app.use('/api', usersRouter)
 
 const gracefulShutdown = async () => {
     try{
