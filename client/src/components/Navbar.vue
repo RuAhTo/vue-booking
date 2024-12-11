@@ -17,27 +17,29 @@ export default defineComponent({
             <h2>Klipp & Klang</h2>
         </div>
         <div class="nav-items">
-            <router-link
-                class="nav-link"
-                to="/"
-                exact-active-class="active-link"
-            >
-                Hem
-            </router-link>
-            <router-link
-                class="nav-link"
-                to="/booking"
-                exact-active-class="active-link"
-            >
-                Bokningar
-            </router-link>
-            <router-link
-                class="nav-link"
-                to="/gallery"
-                exact-active-class="active-link"
-            >
-                Galleri
-            </router-link>
+            <ul>
+                <router-link
+                    class="nav-link"
+                    to="/"
+                    exact-active-class="active-link"
+                >
+                    Hem
+                </router-link>
+                <router-link
+                    class="nav-link"
+                    to="/booking"
+                    exact-active-class="active-link"
+                >
+                    Bokningar
+                </router-link>
+                <router-link
+                    class="nav-link"
+                    to="/gallery"
+                    exact-active-class="active-link"
+                >
+                    Galleri
+                </router-link>
+            </ul>
         </div>
     </nav>
 </template>
