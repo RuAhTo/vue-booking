@@ -149,6 +149,7 @@ export default defineComponent({
 </script>
 
 <template>
+    <h1>Bokningar</h1>
     <div class="container">
         <div class="calendar-header">
             <button @click="handleDecreaseMonth"><</button>

@@ -13,12 +13,20 @@ export default defineComponent({
 
 <template>
     <div>
-        <form action="">
-            <h2>Boka tid</h2>
-            <div>
-                tider
-            </div>
-            <button>Nästa</button>
-        </form>
+        <dialog>
+            <form action="">
+                <h2>Boka tid</h2>
+                <div>
+                    <ul>
+                        <li>10:00</li>
+                        <li>11:00</li>
+                        <li>10:00</li>
+                        <li>11:00</li>
+                    </ul>
+                    {{ }}
+                </div>
+                <button>Nästa</button>
+            </form>
+        </dialog>
     </div>
 </template>
