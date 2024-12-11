@@ -54,7 +54,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     background-color: var(--primary-color);
-}
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;}
 .nav-items {
     padding: 0 2rem;
     display: flex;
@@ -64,13 +65,13 @@ nav {
 
 .nav-link {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 .nav-link:hover{
     text-decoration: underline;
 }
 .active-link {
     text-decoration: underline;
-    color: black;
+    color: white;
 }
 </style>
