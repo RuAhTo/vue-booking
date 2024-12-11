@@ -13,7 +13,7 @@ export default defineComponent({
 
 <template>
     <div class="booking-form-container">
-        <form action="">
+        <form action="submit">
             <h2 class="accent-header">Boka tid</h2>
             <div>
                 <ul>
@@ -27,14 +27,14 @@ export default defineComponent({
                 <label for="name">
                     Förnamn <span class="field-star" aria-hidden="true">*</span>
                 </label>
-                <input type="text" id="name-input" placeholder="Förnamn" aria-describedby="firstNameHint" aria-required="true" >
+                <input type="name" id="firstname-input" placeholder="Förnamn" aria-describedby="firstNameHint" aria-required="true" >
                 <span id="firstNameHint">Skriv ditt förnamn här.</span>
             </div>
             <div class="input-row">
                 <label for="name">
                     Efternamn <span class="field-star" aria-hidden="true">*</span>
                 </label>
-                <input type="text" id="name-input" placeholder="Efternamn" aria-describedby="lastNameHint" aria-required="true" >
+                <input type="name" id="lastname-input" placeholder="Efternamn" aria-describedby="lastNameHint" aria-required="true" >
                 <span id="lastNameHint">Skriv ditt efternamn här.</span>
             </div>
             <div class="input-row">
@@ -44,7 +44,7 @@ export default defineComponent({
                 <input type="email" id="email-input" placeholder="namn@exempel.com" aria-describedby="emailHint" aria-required="true" >
                 <span id="emailHint">Skriv din mailadress här. Skriv i formatet: xxxx@xxxx.xxx</span>
             </div>
-            <button>Boka</button>
+            <button type="submit">Boka</button>
         </form>
     </div>
 </template>

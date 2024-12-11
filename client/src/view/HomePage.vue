@@ -16,18 +16,22 @@ import Navbar from '../components/Navbar.vue';
     </header>
     <main>
         <div class="hero">
-            <div class="container-glass">
+            <div class="welcome-container">
                 <h1>Välkommen till Klipp & Klang!</h1>
                 <p class="slogan">Där stil möter harmoni – din skönhet, vårt fokus.</p>
+                <a class="book-btn" href="/booking">Boka här</a>
             </div>
-
-            <a class="book-btn" href="/booking">Boka här</a>
         </div>
     </main> 
     <Footer/>
 </template>
 
 <style scoped>
+    main{
+        width: 100%;
+        display: flex;
+        height: 100vh;
+    }
 .hero {
     width: 100%;
     background-image: url('/hero-klipp.jpg'); 
@@ -36,13 +40,14 @@ import Navbar from '../components/Navbar.vue';
     background-repeat: no-repeat;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: end;
     flex-direction: column;
+    color:black
 }
 .hero div{
     padding: 2rem;
-    color: white;
     text-align: center;
+    height: 100%;
 }
 h1{
     font-size: 56px;
@@ -62,6 +67,7 @@ p{
     font-weight: 100;
     font-size: x-large;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin: 2rem;
 }
 
 .book-btn:hover{
@@ -70,10 +76,10 @@ p{
     font-weight: 400;
 }
 
-.container-glass{
-    background-color: rgba(114, 114, 114, 0.255);
-    border-radius: 1rem;
-    backdrop-filter: blur(2px);
+.welcome-container{
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    width: 30%;
 }
 
 </style>

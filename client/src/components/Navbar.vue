@@ -25,7 +25,7 @@ export default defineComponent({
                 >
                     Hem
                 </router-link>
-                <router-link
+            <router-link
                     class="nav-link"
                     to="/booking"
                     exact-active-class="active-link"

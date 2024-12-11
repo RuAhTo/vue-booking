@@ -24,7 +24,7 @@ export default defineComponent({
     <Footer/>
 </template>
 
-<style>
+<style scoped>
     main{
         width: 100%;
         display: flex;

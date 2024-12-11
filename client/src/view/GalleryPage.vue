@@ -25,3 +25,13 @@ export default defineComponent({
     </main>
     <Footer/>
 </template>
+
+<style scoped>
+    main{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+</style>
